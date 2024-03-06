@@ -1,28 +1,19 @@
-import ICredential from "../interfaces/ICredential";
-import ICredentialDto from "../interfaces/ICredentialDto";
+import Credential from "../entities/Credential";
+import createCredentialDto from "../dtos/ICredentialDto";
+import validateCredentialDto from "../dtos/IValidateCredentialDto"
+import credentialModel from "../repositorys/credentialModel";
 
-const credentials: ICredential[] = []; /* [ { id: 2, username: "Homero", password: "1234"  } ] */
-let credentialId: number = 1;
-
-export const createCredential = async (createCredentialDto: ICredentialDto): Promise<ICredential> => {
-    const newCredential: ICredential = {
-        id: credentialId++,
-        username: createCredentialDto.username,
-        password: createCredentialDto.password
-    };
-    credentials.push(newCredential);
-    console.log(credentials)
+export const createCredential = async (createCredentialDto: createCredentialDto): Promise<Credential> => {
+    const newCredential: Credential = credentialModel.create(createCredentialDto);
+    await credentialModel.save(newCredential);
     return newCredential;
 };
 
-export const validateCredential = async (validateCredentialDto: ICredentialDto): Promise<ICredential> => {
+export const validateCredential = async (validateCredentialDto: validateCredentialDto): Promise<Credential> => {
     /* { username: "Homero", passsword: "1234" } */
     const { username, password } = validateCredentialDto;
-    const foundCredential = credentials.find(
-        credential => credential.username === username
-    );
-    /* { id: 2, username: "Homero", password: "1234" } */
-    if(!foundCredential) throw Error("Usuario no encontrado");
-    if(password !== foundCredential?.password) throw Error("Contraseña incorrecta");
+    const foundCredential: Credential | null = await credentialModel.findOneBy({ username });
+    if(!foundCredential) throw Error('Usuario no encontrado');
+    if(password !== foundCredential.password) throw Error('Password incorrecto');
     return foundCredential;
 }

@@ -43,5 +43,5 @@ export const findUserByCredentialId = async (
         credential: { id: credentialId }
     });
     return foundUser;
-}
+};
  

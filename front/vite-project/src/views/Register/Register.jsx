@@ -1,7 +1,7 @@
 import axios from "axios";
 import React, { useState } from "react";
 const emailRegExp = /\S+@\S+\.\S+/;
-const POST_SER_URL = "http://localhost:3000/users/register";
+const POST_USER_URL = "http://localhost:3000/users/register";
 
 export default function Register(props) {
 
@@ -47,7 +47,7 @@ export default function Register(props) {
         };
 
         axios
-            .post(POST_SER_URL, newUser)
+            .post(POST_USER_URL, newUser)
             .then(({data}) => data)
             .then((userInDB) => {
                 alert(`Usuario ha sido creado ${userInDB.name}!!!!`);

@@ -1,7 +1,6 @@
 import React, {  useEffect,  useState } from "react";
 import axios from "axios";
 import AppointmentCard from "../../components/AppointmentCard/AppointmentCard";
-import styles from "../../components/AppointmentCard/AppointmentCard.module.css"
 
 const GETAPPOINTMENTS_URL = "http://localhost:3000/appointments"
 

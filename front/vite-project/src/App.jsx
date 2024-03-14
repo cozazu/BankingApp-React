@@ -1,14 +1,22 @@
 import NavBar from "./components/NavBar/NavBar";
-import Home from "./views/Home";
-import MisTurnos from "./views/MisTurnos";
+import About from "./views/About/About";
+import Home from "./views/Home/Home";
+/* import MisTurnos from "./views/MisTurnos"; */
+import Appointments from "./views/Appointments/Appointments";
+import Register from "./views/Register/Register";
 
 
 function App() {
   return (
     <>
-        <NavBar/>
+        <NavBar />
+        <Appointments />
         <Home />
-        <MisTurnos />
+        <About />
+        <Register />
+        
+        
+        {/* <MisTurnos /> */}
     </>
   );
 }

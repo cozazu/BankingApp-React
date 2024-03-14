@@ -8,27 +8,25 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.validateCredential = exports.createCredential = void 0;
-const credentials = [];
-let credentialId = 1;
+const credentialModel_1 = __importDefault(require("../repositorys/credentialModel"));
 const createCredential = (createCredentialDto) => __awaiter(void 0, void 0, void 0, function* () {
-    const newCredential = {
-        id: credentialId++,
-        username: createCredentialDto.username,
-        password: createCredentialDto.password
-    };
-    credentials.push(newCredential);
+    const newCredential = credentialModel_1.default.create(createCredentialDto);
+    yield credentialModel_1.default.save(newCredential);
     return newCredential;
 });
 exports.createCredential = createCredential;
 const validateCredential = (validateCredentialDto) => __awaiter(void 0, void 0, void 0, function* () {
     const { username, password } = validateCredentialDto;
-    const foundCredential = credentials.find(credential => credential.username === username);
+    const foundCredential = yield credentialModel_1.default.findOneBy({ username });
     if (!foundCredential)
-        throw Error("Usuario no encontrado");
-    if (password !== (foundCredential === null || foundCredential === void 0 ? void 0 : foundCredential.password))
-        throw Error("Contraseña incorrecta");
+        throw Error('Usuario no encontrado');
+    if (password !== foundCredential.password)
+        throw Error('Password incorrecto');
     return foundCredential;
 });
 exports.validateCredential = validateCredential;

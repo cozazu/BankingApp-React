@@ -1,0 +1,13 @@
+.Appointments {
+    background-color: #f2f2f2;
+    padding: 20px;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    width: 80%;
+    margin-top: 1rem;
+    border: solid 1px black;
+  }
+  .text {
+    text-align: center;
+  }

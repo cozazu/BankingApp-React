@@ -4,9 +4,13 @@ import styles from "./NavBar.module.css";
 import logo from '../../assets/logo.png'
 import login from "../../assets/login.png"
 import { NavLink } from "react-router-dom";
+import { useSelector } from "react-redux";
 
 
 const NavBar = () => {
+  const login = useSelector(state => state.actualUser.userData.login);
+
+
   return (
     <div className={styles.navbarContainer}>
       <div className={styles.logoSection}>
@@ -16,9 +20,12 @@ const NavBar = () => {
         <NavLink to="/home">
           <span>HOME</span>
         </NavLink>
-        <NavLink to="/appointments">
-          <span>APPOINTMENTS</span>
-        </NavLink>
+        {
+          login &&
+            <NavLink to="/appointments">
+              <span>APPOINTMENTS</span>
+            </NavLink>
+        }  
         <NavLink to="/about">
           <span>ABOUT OF</span>
         </NavLink>

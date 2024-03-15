@@ -1,5 +1,8 @@
 import axios from "axios";
 import React, { useState } from "react";
+import { useDispatch } from "react-redux";
+import { setUserData } from "../../redux/userSlice";
+import { useNavigate } from "react-router-dom";
 
 const POST_USERLOGIN_URL = "http://localhost:3000/users/login";
 
@@ -20,40 +23,27 @@ export default function Login () {
         return errors;
     };
 
-    /* 
-
-        const newUser = {
-            name: user.name, 
-            email: user.mail, 
-            birthdate: user.birthdate, 
-            nDni: user.nDni, 
-            username: user.username, 
-            password: user.password
-        }; */
-
-        /* 
- */
     const handleChange = (event) => {
         const { value, name } = event.target;
         setUser({...user, [name]: value});
         setErrors(validateUser({...user, [name]: value }));
     };
 
+    const dispatch = useDispatch();
+    const navigate = useNavigate();
+
     const handleSubmit = (event) => {
         event.preventDefault();
         axios
             .post(POST_USERLOGIN_URL, user)
-            .then(({data}) => {
+            .then(response => response.data)
+            .then(data => {
+                dispatch(setUserData(data));
                 alert(`Usuario logueado...`);
-                setUser(initialState);
-            })      
+                navigate("/home");
+            })     
             .catch((error) => alert(`Acceso denegado: ${error?.response?.data?.message}`));        
     };
-
-    /* const handleReset = (event) => {
-        event.preventDefault();
-        setUser(initialState);
-    }; */
 
     const formData = [
         { label: "Nombre de usuario: ", name: "username", type: "text", placeholder: "Ingrese nombre de usuario..." },

@@ -1,16 +1,26 @@
 import React, {  useEffect,  useState } from "react";
 import axios from "axios";
 import AppointmentCard from "../../components/AppointmentCard/AppointmentCard";
+import { useDispatch, useSelector } from "react-redux";
+import { setUserAppointments } from "../../redux/userSlice";
+/* const GETAPPOINTMENTS_URL = "http://localhost:3000/appointments" */
+const GETUSERBYID_URL = "http://localhost:3000/users/";
 
-const GETAPPOINTMENTS_URL = "http://localhost:3000/appointments"
 
 export default function Appointments() {
-    const [appointments, setAppointments] = useState([]);
+    /* const [appointments, setAppointments] = useState([]); */
+    const actualUserId = useSelector(state => state.actualUser?.userData?.user?.id);
+
+    const appointments = useSelector(state => state)
+
+    const dispatch = useDispatch();
+
 
     useEffect(() => {
-        axios.get(GETAPPOINTMENTS_URL)
-        .then(response => response.data)
-        .then(appointmentsFromDB => setAppointments(appointmentsFromDB))
+        axios
+        .get(GETUSERBYID_URL + actualUserId)
+        .then(response => response.data.appointments)
+        .then(appointments => dispatch(setUserAppointments(appointments)))
         .catch(error => console.log(error.message));    
     }, []);
     
@@ -18,7 +28,7 @@ export default function Appointments() {
     return (
         <div>
             <h1>Mis Reservas</h1>
-            {
+            {/* {
                 appointments.map(appointment => (
                     <AppointmentCard
                         key={appointment.id}
@@ -29,7 +39,7 @@ export default function Appointments() {
                         description={appointment.description}
                     />
                 ))                
-            }
+            } */}
         </div>
     )
 }

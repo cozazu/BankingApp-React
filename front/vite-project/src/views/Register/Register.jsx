@@ -39,7 +39,7 @@ export default function Register(props) {
 
         const newUser = {
             name: user.name, 
-            email: user.mail, 
+            email: user.email, 
             birthdate: user.birthdate, 
             nDni: user.nDni, 
             username: user.username, 

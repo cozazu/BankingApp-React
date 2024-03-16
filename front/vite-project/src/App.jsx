@@ -8,6 +8,7 @@ import Login from "./views/Login/Login";
 import { Routes, Route } from "react-router-dom";
 import Contact from "./views/Contact/Contact";
 import Landing from "./views/Landing/Landing";
+import AppointmentForm from "./views/AppointmentForm/AppointmentForm";
 
 
 function App() {
@@ -22,6 +23,7 @@ function App() {
           <Route path="/appointments" element={<Appointments />} />
           <Route path="/register" element={<Register />} />
           <Route path="/login" element={<Login />} />
+          <Route path="/appointmentform" element={<AppointmentForm />} />
         </Routes>
     </>
   );

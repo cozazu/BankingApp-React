@@ -1,0 +1,52 @@
+.registerContainer {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.formContainer {
+    width: 300px;
+    margin-top: 20px;
+    padding: 20px;
+    border-radius: 10px;
+    border: 1px solid #ccc;
+    box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.1);
+}
+
+.inputContainer {
+    margin-bottom: 15px;
+}
+
+.label {
+    font-weight: bold;
+}
+
+.inputField {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    outline: none;
+}
+
+.errorText {
+    color: red;
+    font-size: 12px;
+    margin-top: 5px;
+}
+
+.submitButton, .resetButton {
+    width: 100%;
+    padding: 10px;
+    background-color:  rgb(254, 139, 8);
+    border: none;
+    border-radius: 5px;
+    color: white;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.submitButton:hover, .resetButton:hover {
+    background-color: darkorange;
+}

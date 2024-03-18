@@ -26,7 +26,7 @@ export default function Appointments() {
     const CANCEL_URL = "http://localhost:3000/appointments/cancel";
     const handleAppointmentCancel = (appointmentId) => {
         axios
-            .put(CANCEL_URL + appointmentId)
+            .put(`${CANCEL_URL}/${appointmentId}`) 
             .then(response => response.data)
             .then(data => {
                 axios
@@ -40,8 +40,8 @@ export default function Appointments() {
     
 
     return (
-        <div>
-            <h1>Mis Reservas</h1>
+        <div className="container mt-4">
+            <h1 className="text-center">Mis Reservas</h1>
             {
                 appointments.length 
                 ?
@@ -56,7 +56,7 @@ export default function Appointments() {
                             handleAppointmentCancel={handleAppointmentCancel}
                         />
                     ))
-                : <p>No hay reservas...</p>                
+                : <p className="text-center mt-5">No hay reservas...</p>                
             }
         </div>
     )

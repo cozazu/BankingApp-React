@@ -1,7 +1,9 @@
 import axios from "axios";
 import React, { useState } from "react";
+import styles from "./Register.module.css"
 const emailRegExp = /\S+@\S+\.\S+/;
 const POST_USER_URL = "http://localhost:3000/users/register";
+
 
 export default function Register(props) {
 
@@ -80,18 +82,17 @@ export default function Register(props) {
 
     return (
     
-        <div>
+        <div className={styles.registerContainer}>
             <h2>Registro</h2>
-            <form onSubmit={handleSubmit}>
-
+            <form onSubmit={handleSubmit} className={styles.formContainer}>
                 {
                     formData.map(({ label, name, type, placeholder }) => {
                         return (
-                            <div key={name}>
+                            <div key={name} className={styles.inputContainer}>
                                 <label htmlFor={name}>{label}</label>
                                 <input /* className="" */ type={type} id={name} name={name} value={user[name]} placeholder={placeholder} onChange={handleChange} />
                                 {
-                                    errors[name] && <span style={{color: "red"}}>{errors[name]}</span>
+                                    errors[name] && <span className={styles.errorText}>{errors[name]}</span>
                                 }
                             </div>
                         );
@@ -100,10 +101,12 @@ export default function Register(props) {
                 <button 
                     type="submit"
                     disabled={Object.keys(user)
-                        .some(e => !user[e])    
-                    }                
+                        .some(e => !user[e])                          
+                    }
+                    className={styles.submitButton}                  
                 >Enviar</button>
-                <button onClick={handleReset}>Borrar formulario</button>
+                <hr />
+                <button onClick={handleReset} className={styles.resetButton}>Borrar formulario</button>
             </form>
         </div>
     )

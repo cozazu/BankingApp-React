@@ -3,6 +3,7 @@ import React, { useState } from "react";
 import { useDispatch } from "react-redux";
 import { setUserData } from "../../redux/userSlice";
 import { useNavigate } from "react-router-dom";
+import styles from "./Login.module.css"
 
 const POST_USERLOGIN_URL = "http://localhost:3000/users/login";
 
@@ -51,13 +52,13 @@ export default function Login () {
     ];
 
     return (    
-        <div>
+        <div className={styles.loginContainer}>
             <h2>Login</h2>
-            <form onSubmit={handleSubmit}>
+            <form onSubmit={handleSubmit} className={styles.formContainer}>
                 {
                     formData.map(({ label, name, type}) => {
                         return (
-                            <div key={name}>
+                            <div key={name} className={styles.inputContainer}>
                                 <label htmlFor={name}>{label}</label>
                                 <input /* className="" */                                  
                                 id={name} 
@@ -67,8 +68,8 @@ export default function Login () {
                                 placeholder={`Ingresar ${label.toLowerCase()}`} 
                                 onChange={handleChange} 
                                 />
-                                {
-                                    errors[name] && (<span style={{color: "red"}}>{errors[name]}</span>)
+                                {   
+                                    errors[name] && (<span className={styles.errorText}>{errors[name]}</span>)
                                 }
                             </div>
                         );
@@ -76,7 +77,8 @@ export default function Login () {
                 }
                 <button 
                     type="submit"
-                    disabled={Object.keys(user).some(e => !user[e])}                
+                    disabled={Object.keys(user).some(e => !user[e])}
+                    className={styles.submitButton}                
                 >
                     Ingresar
                 </button>

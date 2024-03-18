@@ -1,6 +1,6 @@
 import axios from "axios";
 import React, { useState } from "react";
-/* import styles from */
+import styles from "./AppointmentForm.module.css"
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 
@@ -46,6 +46,7 @@ export default function AppointmentForm(props) {
                 alert(`Usuario ha sido creada la nueva reserva:
                 Fecha: ${appointmentInDB.date}, hora: ${appointmentInDB.time}`);
                 navigate("/appointments");
+                console.log(appointmentInDB)
             })      
             .catch((error) => alert(error.message));        
     };
@@ -63,20 +64,19 @@ export default function AppointmentForm(props) {
         { label: "Descripción: ", name: "description", type: "text", placeholder: "Ingrese descripción..." },
     ]
 
-    return (
-    
-        <div>
+    return (    
+        <div className={styles.formContainer}>
             <h2>Registro</h2>
             <form onSubmit={handleSubmit}>
 
                 {
                     formData.map(({ label, name, type, placeholder }) => {
                         return (
-                            <div key={name}>
+                            <div key={name} className={styles.inputContainer}>
                                 <label htmlFor={name}>{label}</label>
                                 <input /* className="" */ type={type} id={name} name={name} value={appointment[name]} placeholder={placeholder} onChange={handleChange} />
                                 {
-                                    errors[name] && <span style={{color: "red"}}>{errors[name]}</span>
+                                    errors[name] && <span className={styles.errorText}>{errors[name]}</span>
                                 }
                             </div>
                         );
@@ -86,7 +86,8 @@ export default function AppointmentForm(props) {
                     type="submit"
                     disabled={Object.keys(appointment)
                         .some((e) => !appointment[e])    
-                    }                
+                    }
+                    className={styles.submitButton}                
                 >Crear Reserva
                 </button>
             </form>

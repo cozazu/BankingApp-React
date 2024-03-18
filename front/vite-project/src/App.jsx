@@ -1,7 +1,6 @@
 import NavBar from "./components/NavBar/NavBar";
 import About from "./views/About/About";
 import Home from "./views/Home/Home";
-/* import MisTurnos from "./views/MisTurnos"; */
 import Appointments from "./views/Appointments/Appointments";
 import Register from "./views/Register/Register";
 import Login from "./views/Login/Login";
@@ -9,6 +8,7 @@ import { Routes, Route } from "react-router-dom";
 import Contact from "./views/Contact/Contact";
 import Landing from "./views/Landing/Landing";
 import AppointmentForm from "./views/AppointmentForm/AppointmentForm";
+import "bootstrap/dist/css/bootstrap.min.css";
 
 
 function App() {

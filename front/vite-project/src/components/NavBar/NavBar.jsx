@@ -2,7 +2,7 @@ import React from "react";
 /* import ListNav from "./ListNav"; */
 import styles from "./NavBar.module.css";
 import logo from '../../assets/logo.png';
-import loginn from '../../assets/login.png';
+import loguearse from '../../assets/loguearse.png';
 import { NavLink, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { setUserAppointments, setUserData } from "../../redux/userSlice";
@@ -45,7 +45,7 @@ const NavBar = () => {
             </NavLink>
         }   
         <NavLink to="/about">
-          <span>ABOUT OF</span>
+          <span>ABOUT US</span>
         </NavLink>
         <NavLink to="/contact">
           <span>CONTACT</span>
@@ -59,7 +59,7 @@ const NavBar = () => {
         }  
       </div>  
       <div className={styles.loginSection}>
-        <img src={loginn} alt="login" />
+        <img src={loguearse} alt="login" />
       </div>
     </div>
   );

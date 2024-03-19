@@ -51,33 +51,54 @@ export default function AppointmentForm(props) {
             .catch((error) => alert(error.message));        
     };
 
+    const isDiaHabil = (fecha) => {
+        const diaSemana = new Date(fecha).getDay();
+        return diaSemana >= 0 && diaSemana <= 4; 
+    };
+    
     const handleChange = (event) => {
         const { value, name } = event.target;
-        setAppointment({...appointment, [name]: value});
-
+    
+        const currentDate = new Date().toISOString().split('T')[0];
+        if (name === "date") {
+            if (value < currentDate || !isDiaHabil(value)) {
+                return; 
+            }
+        }
+    
+        setAppointment({ ...appointment, [name]: value });
+    
         setErrors(validateAppointment({...appointment, [name]: value }));
     };
 
+
     const formData = [
         { label: "Fecha: ", name: "date", type: "date", placeholder: "Ingrese fecha..." },
-        { /* className: */label: "Horario: ", name: "time", type: "time", placeholder: "Ingrese horario..." },
-        { label: "Descripción: ", name: "description", type: "text", placeholder: "Ingrese descripción..." },
+        { label: "Horario: ", name: "time", type: "time", placeholder: "Ingrese horario..." },
+        { label: "Descripción: ", name: "description", type: "select", options: ["Apertura de una cuenta bancaria", "Obtención de un préstamo", "Asesoramiento financiero", "Actualización de información"] },
     ]
-
+    
     return (    
         <div className={styles.formContainer}>
-            <h2>Registro</h2>
+            <h2 className="text-center">Nueva Cita</h2>
+            <hr />
             <form onSubmit={handleSubmit}>
-
                 {
-                    formData.map(({ label, name, type, placeholder }) => {
+                    formData.map(({ label, name, type, placeholder, options }) => {
                         return (
                             <div key={name} className={styles.inputContainer}>
                                 <label htmlFor={name}>{label}</label>
-                                <input /* className="" */ type={type} id={name} name={name} value={appointment[name]} placeholder={placeholder} onChange={handleChange} />
-                                {
-                                    errors[name] && <span className={styles.errorText}>{errors[name]}</span>
-                                }
+                                {type === "select" ? (
+                                    <select id={name} name={name} value={appointment[name]} onChange={handleChange}>
+                                        <option value="">{placeholder}</option>
+                                        {options.map((option, index) => (
+                                            <option key={index} value={option}>{option}</option>
+                                        ))}
+                                    </select>
+                                ) : (
+                                    <input type={type} id={name} name={name} value={appointment[name]} placeholder={placeholder} onChange={handleChange} min={new Date().toISOString().split("T")[0]} />
+                                )}
+                                {errors[name] && <span className={styles.errorText}>{errors[name]}</span>}
                             </div>
                         );
                     })

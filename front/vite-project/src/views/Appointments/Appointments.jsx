@@ -3,12 +3,21 @@ import axios from "axios";
 import AppointmentCard from "../../components/AppointmentCard/AppointmentCard";
 import { useDispatch, useSelector } from "react-redux";
 import { setUserAppointments } from "../../redux/userSlice";
+import { useNavigate } from "react-router-dom";
 /* const GETAPPOINTMENTS_URL = "http://localhost:3000/appointments" */
 const GETUSERBYID_URL = "http://localhost:3000/users/";
 
 
 export default function Appointments() {
     /* const [appointments, setAppointments] = useState([]); */
+    const verifyLogin =  useSelector(state => state.actualUser?.userData?.login);
+    const navigate = useNavigate()
+    useEffect( () => {
+        if(!verifyLogin) {
+            navigate("/login")
+        }
+    }, []);
+
     const actualUserId = useSelector(state => state.actualUser?.userData?.user?.id);
 
     const appointments = useSelector((state) => state.actualUser.userAppointments);

@@ -40,6 +40,7 @@ export default function Login () {
             .then(response => response.data)
             .then(data => {
                 dispatch(setUserData(data));
+                localStorage.setItem("userData", JSON.stringify(data));
                 alert(`Usuario logueado...`);
                 navigate("/home");
             })     
